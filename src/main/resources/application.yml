@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: Task_Management_System
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task_management_system
+    username: postgres
+    password: 0702
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+jwt:
+  secret: 0bb7e80edaf3e3f27e4868790fd6e52c2d63e4550fbaa482e3d07a76503e234c
+
+
