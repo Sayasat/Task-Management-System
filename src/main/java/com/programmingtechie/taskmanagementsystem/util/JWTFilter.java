@@ -1,7 +1,8 @@
 package com.programmingtechie.taskmanagementsystem.util;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.programmingtechie.taskmanagementsystem.service.UserDetailsImplService;
+import com.programmingtechie.taskmanagementsystem.model.usermodelenums.Role;
+import com.programmingtechie.taskmanagementsystem.service.impl.UserDetailsImplService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,14 +38,14 @@ public class JWTFilter extends OncePerRequestFilter {
             } else {
                 try {
                     String username = jwtUtil.validateTokenAndRetrieveClaim(jwt, "access");
-                    String role = jwtUtil.getRoleFromToken(jwt);
+                    Role role = jwtUtil.getRoleFromToken(jwt);
 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(userDetails,
                                     userDetails.getPassword(),
-                                    Collections.singletonList(new SimpleGrantedAuthority(role)));
+                                    Collections.singletonList(new SimpleGrantedAuthority(role.name())));
 
                     if(SecurityContextHolder.getContext().getAuthentication() == null)
                         SecurityContextHolder.getContext().setAuthentication(authToken);

@@ -2,9 +2,14 @@ package com.programmingtechie.taskmanagementsystem.model;
 
 import com.programmingtechie.taskmanagementsystem.model.usermodelenums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_impl")
@@ -21,6 +26,7 @@ public class UserImpl {
     @Column(name = "username")
     private String username;
 
+    @Email
     @Column(name = "email", unique = true)
     private String email;
 
@@ -28,7 +34,9 @@ public class UserImpl {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     private Role role;
+
+    private LocalDateTime registrationDate;
 
 }

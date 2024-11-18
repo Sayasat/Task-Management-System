@@ -1,4 +1,4 @@
-package com.programmingtechie.taskmanagementsystem.service;
+package com.programmingtechie.taskmanagementsystem.service.impl;
 
 import com.programmingtechie.taskmanagementsystem.dto.UserDetailsImpl;
 import com.programmingtechie.taskmanagementsystem.model.UserImpl;
@@ -18,13 +18,13 @@ public class UserDetailsImplService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username == null || username.isEmpty()) {
-            throw new UsernameNotFoundException("Username is empty");
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        if (email == null || email.isEmpty()) {
+            throw new UsernameNotFoundException("Email is empty");
         }
 
-        UserImpl userImpl = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+        UserImpl userImpl = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
         return new UserDetailsImpl(userImpl);
     }
